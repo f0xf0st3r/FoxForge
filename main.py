@@ -6,12 +6,18 @@ from core.logs import Logs
 from core.executor import Executor
 
 from modules import recon
+from pyfiglet import Figlet
 
 def banner():
-    print("-" * 80)
-    print(" FOXFORGE v1.0 ")
-    print(" Unified CTF Operations Platform ")
-    print("-" * 80)
+    # print("-" * 80)
+    # print(" FOXFORGE v1.0 ")
+    # print(" Unified CTF Operations Platform ")
+    # print("-" * 80)
+
+    
+
+    banner = Figlet(font="ansi_shadow")
+    print(banner.renderText("\nFoxForge"))
 
 def main():
     banner()
