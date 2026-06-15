@@ -22,6 +22,11 @@
 - Python 3.x
 - `pyfiglet` (for the CLI banner)
 
+**External Tools** (Required for specific modules):
+- `nmap` (Network scanning)
+- `whatweb` (Website fingerprinting)
+- `httpx` (HTTP service discovery)
+
 Install the required dependencies using:
 
 ```bash
