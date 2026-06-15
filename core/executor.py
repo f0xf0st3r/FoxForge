@@ -55,4 +55,4 @@ class Executor:
                 print("error saving in output file")
 
         self.logs.logexe(command, status, outputpath, workspacelogs)
-
+        return status == 'SUCCESS'

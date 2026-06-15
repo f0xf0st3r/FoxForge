@@ -24,17 +24,17 @@ class Workspacemanager:
 
         subfolders = ['logs', 'reports', 'scans', 'notes', 'extracted']
 
+        is_new = not os.path.exists(self.currentworkspace)
 
-        if not os.path.exists(self.currentworkspace):
-            os.makedirs(self.currentworkspace)
-            
-            for i in subfolders:
-                os.makedirs(os.path.join(self.currentworkspace, i), exist_ok=True)
-            
-            print(f"workspace created successfully!! {self.currentworkspace}")
+        os.makedirs(self.currentworkspace, exist_ok=True)
         
+        for i in subfolders:
+            os.makedirs(os.path.join(self.currentworkspace, i), exist_ok=True)
+            
+        if is_new:
+            print(f"workspace created successfully!! {self.currentworkspace}")
         else:
-            print(f"error in creating workspace {self.currentworkspace}")
+            print(f"workspace already exists!! {self.currentworkspace}")
 
     def getdirpath(self, dirname):
         if not self.currentworkspace:
