@@ -1,0 +1,102 @@
+ ==============================================================================
+ FoxForge - Detailed Requirements per Module
+ ==============================================================================
+
+
+ This file contains the Python dependencies required to run FoxForge, as well
+ as detailed documentation on the system-level binaries required by each module.
+
+
+ Python dependencies can be installed via:
+    pip install -r requirements.txt
+ ==============================================================================
+
+
+ ------------------------------------------------------------------------------
+ 1. PWN (Binary Exploitation) Module
+ ------------------------------------------------------------------------------
+ Python Packages:
+pwntools
+ System Dependencies:
+   - checksec: Used to check binary protections.
+   - ROPgadget: Used to discover ROP gadgets.
+ Install: sudo apt install checksec ropgadget
+
+ ------------------------------------------------------------------------------
+ 2. Web Security Module
+ ------------------------------------------------------------------------------
+ Python Packages:
+sqlmap
+ System Dependencies:
+   - ffuf: Directory & file discovery fuzzing.
+   - nuclei: Template-based vulnerability scanning.
+   - wordlists: dirb, dirbuster wordlists for fuzzing.
+ Install: sudo apt install ffuf nuclei wordlists dirb
+
+ ------------------------------------------------------------------------------
+ 3. Reconnaissance Module ( Done )
+ ------------------------------------------------------------------------------
+ System Dependencies:
+   - nmap: Network scanning, service and OS detection.
+   - whatweb: Website fingerprinting.
+   - httpx: HTTP service discovery.
+ Install: sudo apt install nmap whatweb httpx-toolkit
+
+ ------------------------------------------------------------------------------
+ 4. Steganography Module
+ ------------------------------------------------------------------------------
+ System Dependencies:
+   - exiftool: Metadata analysis.
+   - steghide: Hidden file extraction.
+   - binwalk: Embedded data scan.
+   - stegseek: Password protected stego scan.
+   - zsteg: Detect hidden data in PNG/BMP.
+ Install: sudo apt install libimage-exiftool-perl steghide binwalk stegseek zsteg
+
+ ------------------------------------------------------------------------------
+ 5. Reverse Engineering Module
+ ------------------------------------------------------------------------------
+ System Dependencies:
+   - file: Identify file types.
+   - strings: Extract readable strings.
+   - upx: Detect and unpack UPX packed binaries.
+   - rabin2: Static analysis (part of radare2).
+ Install: sudo apt install file binutils upx-ucl radare2
+
+ ------------------------------------------------------------------------------
+ 6. Digital Forensics Module
+ ------------------------------------------------------------------------------
+ System Dependencies:
+   - binwalk: Extract embedded files.
+   - foremost: Recover deleted files.
+   - bulk_extractor: Extract artifacts (PCAPs, emails, etc.).
+   - vol: Volatility framework for memory dump analysis.
+ Install: sudo apt install binwalk foremost bulk-extractor volatility3
+
+ ------------------------------------------------------------------------------
+ 7. Cryptography Module
+ ------------------------------------------------------------------------------
+ System Dependencies:
+   - hashid: Identify hash types.
+   - base64: Base64 encode/decode.
+   - openssl: Analyze and decrypt ciphers.
+ Install: sudo apt install hashid coreutils openssl
+
+ ------------------------------------------------------------------------------
+ 8. OSINT Module
+ ------------------------------------------------------------------------------
+ System Dependencies:
+   - sherlock: Search usernames across platforms.
+   - theHarvester: Email and subdomain intelligence.
+ Install: sudo apt install sherlock theharvester
+
+ ------------------------------------------------------------------------------
+ 9. Utilities Module
+ ------------------------------------------------------------------------------
+ System Dependencies:
+   - xxd: Hex to ASCII and vice versa.
+   - base64: Encoding/decoding.
+   - jq: JSON formatting.
+   - zbarimg: QR code decoding (from zbar-tools).
+   - qrencode: QR code generation.
+ Install: sudo apt install xxd coreutils jq zbar-tools qrencode
