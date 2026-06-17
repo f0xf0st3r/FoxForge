@@ -17,21 +17,29 @@
   - Binary Exploitation
   - Utilities
 
-## Prerequisites
+## Prerequisites & Installation
 
-- Python 3.x
-- `pyfiglet` (for the CLI banner)
+- **Python 3.x**
+- **External Tools:** FoxForge relies heavily on system-level command-line tools.
 
-**External Tools** (Required for specific modules):
-- `nmap` (Network scanning)
-- `whatweb` (Website fingerprinting)
-- `httpx` (HTTP service discovery)
+### 1. Install System Dependencies (Linux/Kali)
 
-Install the required dependencies using:
+To ensure all modules work flawlessly, you must install the required standalone tools. Run the following one-liner on a Kali/Debian based system:
 
 ```bash
-pip install pyfiglet
+sudo apt update && sudo apt install -y checksec ropgadget ffuf nuclei wordlists dirb nmap whatweb httpx-toolkit libimage-exiftool-perl steghide binwalk stegseek zsteg file binutils upx-ucl radare2 foremost bulk-extractor volatility3 hashid coreutils openssl sherlock theharvester xxd jq zbar-tools qrencode
 ```
+*(Note: On Kali Linux, wordlists are pre-installed but may need unzipping via `sudo gunzip /usr/share/wordlists/rockyou.txt.gz`)*
+
+### 2. Install Python Dependencies
+
+Install the required Python packages (including `pyfiglet`, `pwntools`, and `sqlmap`) using the provided requirements file:
+
+```bash
+pip install -r requirements.txt
+```
+
+*(For a detailed breakdown of which tools each module requires, please refer to the `requirements.txt` file.)*
 
 ## Usage
 
@@ -47,15 +55,15 @@ pip install pyfiglet
    ```
 
 3. Enter a challenge name to create or load a workspace, or press Enter to run without one.
-4. Select a category from the main menu to begin your operations.
+4. Select a category from the main menu to begin your operations and follow the on-screen prompts.
 
 ## Project Structure
 
 - `main.py` - The entry point of the application. Handles the main menu and workspace initialization.
 - `core/` - Contains core operational modules such as `WorkspaceManager`, `Logs`, and `Executor`.
 - `modules/` - Contains category-specific handlers (e.g., `recon.py`).
-- `workspace/` - The directory where individual challenge workspaces and their data are stored.
-- `logs/` - Stores execution and operation logs.
+- `workspaces/` - The directory where individual challenge workspaces and their data are stored. (Outputs are categorized into `reports`, `extracted`, and `logs`).
+- `logs/` - Stores global execution and operation logs.
 
 ## Contributing
 
