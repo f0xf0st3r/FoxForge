@@ -1,5 +1,6 @@
 import shutil
 import os
+import subprocess
 
 # Common install paths on Windows where tools may not be in PATH
 WINDOWS_TOOL_PATHS = {
@@ -28,6 +29,12 @@ def is_tool_available(tool):
                 # Add to PATH for this session so executor can find it
                 os.environ['PATH'] = path + os.pathsep + os.environ.get('PATH', '')
                 return True
+        if tool == 'whatweb':
+            try:
+                subprocess.run(['wsl', 'whatweb', '--version'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+                return True
+            except (subprocess.CalledProcessError, FileNotFoundError):
+                pass
     return False
 
 def check_dependencies():
@@ -98,6 +105,7 @@ def handler(executor):
                 print("[!] Sudo execution failed. Retrying without sudo...")
                 executor.run(f"nmap {params} {target}", outputfilename=f"nmap_custom - {safe_target}.txt")
         elif ch == 7:
-            executor.run(f"whatweb {target}", outputfilename=f"whatweb - {safe_target}.txt")
+            cmd_prefix = "wsl " if os.name == 'nt' and not shutil.which('whatweb') else ""
+            executor.run(f"{cmd_prefix}whatweb {target}", outputfilename=f"whatweb - {safe_target}.txt")
         elif ch == 8:
              executor.run(f"httpx -u {target}", outputfilename=f"httpx - {safe_target}.txt")

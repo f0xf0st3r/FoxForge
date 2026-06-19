@@ -5,7 +5,7 @@ from core.workspace import Workspacemanager
 from core.logs import Logs
 from core.executor import Executor
 
-from modules import recon
+from modules import recon, web
 from pyfiglet import Figlet
 
 def banner():
@@ -58,7 +58,9 @@ def main():
             print("\nExiting FoxForge. Goodbye!")
             sys.exit(0)
         elif ch == "1":
-            recon.handler(executor)
+            recon.handle(executor)
+        elif ch == "2":
+            web.handle(executor)
         else:
             print("enter a valid category")
 
