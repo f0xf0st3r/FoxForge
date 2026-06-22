@@ -1,6 +1,8 @@
+import genericpath
 import shutil
 import os
 import subprocess
+from urllib.parse import urlparse
 
 WINDOWS_TOOL_PATHS = {
     'ffuf': [
@@ -44,6 +46,48 @@ def check_dependencies():
         print("\n")
 
 
+
+def get_sqlmap_target_args(target: str) -> str | None:
+    """
+    Detects the right SQLMap targeting strategy from the URL.
+    Returns the target args string, or None if user cancels.
+    """
+    parsed = urlparse(target)
+
+    if parsed.query:
+        print(f"[+] GET parameter detected: {parsed.query}")
+        return f'-u "{target}"'
+
+    print("[!] No GET parameters found in URL.")
+    print("\n    [1] Auto-discover forms      --forms --crawl=2")
+    print("    [2] Burp request file        -r request.txt")
+    print("    [3] Manually add parameter   e.g. /page?id=1")
+    print("    [0] Cancel\n")
+
+    try:
+        mode = int(input("    Select strategy: ").strip())
+    except ValueError:
+        print("[-] Invalid input.")
+        return None
+
+    if mode == 1:
+        return f'-u "{target}" --forms --crawl=2'
+
+    elif mode == 2:
+        req_file = input("    Path to request file (.txt): ").strip()
+        if os.path.exists(req_file):
+            return f'-r "{req_file}"'
+        print(f"[-] File not found: {req_file}")
+        return None
+
+    elif mode == 3:
+        manual = input("    Enter URL with parameter: ").strip()
+        if manual:
+            return f'-u "{manual}"'
+        return None
+
+    return None
+
 def handle(executor):
     while True:
         check_dependencies()
@@ -52,7 +96,7 @@ def handle(executor):
         print("[1] Quick Enumeration")
         print("[2] Deep Enumeration")
         print("[3] Custom Wordlist Scan")
-
+    
         print("\nSQL Analysis")
         print("[4] Basic SQL Testing")
         print("[5] Database Enumeration")
@@ -123,11 +167,24 @@ def handle(executor):
             )
         
         elif ch == 4:
-            executor.run(
-                f"sqlmap -u {target} --batch",
-                outputdir = "scans",
-                outputfilename = "sqlmap_BasicTesting.txt"
-            )
+            args = get_sqlmap_target_args(target)
+
+            if args:
+                executor.run(
+                    f"sqlmap {args} --batch --random-agent",
+                    outputdir="scans",
+                    outputfilename="sqlmap_BasicTesting.txt"
+                )
+
+        elif ch == 5:
+            args = get_sqlmap_target_args(target)
+
+            if args:
+                executor.run(
+                    f"sqlmap {args} --dbs --batch --random-agent",
+                    outputdir="scans",
+                    outputfilename="sqlmap_DatabaseEnumeration.txt"
+                )
 
             
             
