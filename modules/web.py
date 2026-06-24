@@ -287,8 +287,8 @@ def handle(executor):
                 executor.run(
                     cmd,
                     outputdir="scans",
-            outputfilename="sqlmap_FullAssessment.txt"
-        )
+                    outputfilename="sqlmap_FullAssessment.txt"
+                )
 
         elif ch == 7:
             findings = run_common_checks(target)
