@@ -18,11 +18,11 @@ class Logs:
         time = datetime.now()
         entry = f"time : {time}\n command : {command}\n status : {status}\n output file : {outputfile}"
 
-        with open(self.overalllogfile, "a") as f:
+        with open(self.overalllogfile, "a", encoding="utf-8") as f:
             f.write(entry)
 
         
         if workspacelogsfolder:
             workspacelogs = os.path.join(workspacelogsfolder,"execution.log")
-            with open(workspacelogs, "a") as f:
+            with open(workspacelogs, "a", encoding="utf-8") as f:
                 f.write(entry)
