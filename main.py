@@ -5,7 +5,7 @@ from core.workspace import Workspacemanager
 from core.logs import Logs
 from core.executor import Executor
 
-from modules import recon, web
+from modules import recon, web, crypto
 from pyfiglet import Figlet
 
 def banner():
@@ -61,6 +61,8 @@ def main():
             recon.handle(executor)
         elif ch == "2":
             web.handle(executor)
+        elif ch == "3":
+            crypto.handle(executor)
         else:
             print("enter a valid category")
 
